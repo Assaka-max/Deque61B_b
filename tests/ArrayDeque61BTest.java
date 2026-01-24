@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.google.common.truth.Truth.assertThat;
@@ -43,5 +44,32 @@ public class ArrayDeque61BTest {
         Deque61B<Integer> deque61B = new ArrayDeque61B<>();
         for(int i = 0; i < 10; i++) deque61B.addFirst(i);
         assertThat(deque61B.toList()).containsExactly(9, 8, 7, 6, 5, 4, 3, 2, 1, 0).inOrder();
+    }
+
+    @Test
+    public void removeFirstTest(){
+        Deque61B<Integer> deque61B = new ArrayDeque61B<>();
+        for(int i = 0; i < 5; i++) deque61B.addLast(i);
+        assertThat(deque61B.toList()).containsExactly(0, 1, 2, 3, 4).inOrder();
+        deque61B.removeFirst();
+        assertThat(deque61B.toList()).containsExactly(1, 2, 3, 4).inOrder();
+    }
+
+    @Test
+    public void removeLastTest(){
+        Deque61B<Integer> deque61B = new ArrayDeque61B<>();
+        for(int i = 0; i < 5; i++) deque61B.addLast(i);
+        assertThat(deque61B.toList()).containsExactly(0, 1, 2, 3, 4).inOrder();
+        deque61B.removeLast();
+        assertThat(deque61B.toList()).containsExactly(0, 1, 2, 3).inOrder();
+    }
+
+    @Test
+    public void iteratorTest(){
+        Deque61B<Integer> deque61B = new ArrayDeque61B<>();
+        for(int i = 0; i < 5; i++) deque61B.addLast(i);
+        List<Integer> testList = new ArrayList<>();
+        for(Integer x : deque61B) testList.add(x);
+        assertThat(testList).containsExactly(0, 1, 2, 3, 4).inOrder();
     }
 }

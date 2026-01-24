@@ -1,7 +1,9 @@
 package deque;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class ArrayDeque61B<T> implements Deque61B<T>{
 
@@ -64,16 +66,26 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public T removeFirst() {
+        if(size != 0) {
+            nextFirst++;
+            size--;
+            return item[nextFirst];
+        }
         return null;
     }
 
     @Override
     public T removeLast() {
+        if(size != 0) {
+            nextLast--;
+            size--;
+            return item[nextLast];
+        }
         return null;
     }
 
@@ -85,6 +97,37 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
 
     @Override
     public T getRecursive(int index) {
-        return null;
+        throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
+    }
+
+    @Override
+    public Iterator<T> iterator(){
+        return new ArrayDequeIterator();
+    }
+
+    private class ArrayDequeIterator implements Iterator<T>{
+        private int currentIndex;
+        private int itemsReturned;
+
+        public ArrayDequeIterator(){
+            this.currentIndex = Math.floorMod(nextFirst+1, item.length);
+            this.itemsReturned = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return itemsReturned < size;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            T result = item[currentIndex];
+            currentIndex = Math.floorMod(currentIndex +1, item.length);
+            itemsReturned++;
+            return result;
+        }
     }
 }
