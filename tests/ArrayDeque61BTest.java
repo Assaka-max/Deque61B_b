@@ -72,4 +72,16 @@ public class ArrayDeque61BTest {
         for(Integer x : deque61B) testList.add(x);
         assertThat(testList).containsExactly(0, 1, 2, 3, 4).inOrder();
     }
+
+    @Test
+    public void equalsTest(){
+        Deque61B<Integer> deque61B1 = new ArrayDeque61B<>();
+        Deque61B<Integer> deque61B2 = new ArrayDeque61B<>();
+        assertThat(deque61B1.equals(deque61B2)).isTrue();
+        for(int i = 0; i < 5; i++) {
+            deque61B1.addLast(i);
+            deque61B2.addLast(i);
+        }
+        assertThat(deque61B1.equals(deque61B2)).isTrue();
+    }
 }

@@ -130,4 +130,24 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
             return result;
         }
     }
+
+    @Override
+    public boolean equals(Object other){
+        if(this == other) return true;
+        if(other instanceof Deque61B<?> otherDeque){
+            if(otherDeque.size() != this.size()) return false;
+            Iterator<T> thisIter = this.iterator();
+            Iterator<?> otherIter = otherDeque.iterator();
+
+            while (thisIter.hasNext() && otherIter.hasNext()){
+                if(!thisIter.next().equals(otherIter.next())) return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public String toString(){
+        return this.toList().toString();
+    }
 }
