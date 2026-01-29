@@ -72,9 +72,12 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public T removeFirst() {
         if(size != 0) {
-            nextFirst++;
+            int index = Math.floorMod(nextFirst + 1, item.length);
+            T removed = item[index];
+            item[index] = null;
+            nextFirst = index;
             size--;
-            return item[nextFirst];
+            return removed;
         }
         return null;
     }
@@ -82,9 +85,12 @@ public class ArrayDeque61B<T> implements Deque61B<T>{
     @Override
     public T removeLast() {
         if(size != 0) {
-            nextLast--;
+            int index = Math.floorMod(nextLast - 1, item.length);
+            T removed = item[index];
+            item[index] = null;
+            nextLast = index;
             size--;
-            return item[nextLast];
+            return removed;
         }
         return null;
     }
